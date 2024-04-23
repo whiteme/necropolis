@@ -6,7 +6,9 @@
 <head>
   <meta charset="UTF-8">
   <!-- import CSS -->
+  <link rel="shortcut icon" href="static/i.jpg">
   <link rel="stylesheet" href="static/css/index.css">
+  <link rel="stylesheet" href="static/css/zig.css">
     <!-- import Vue before Element -->
      <!-- <script src="static/scripts/vue.min.js"></script> -->
      <script src="static/scripts/vue.js"></script>
@@ -16,95 +18,32 @@
     <!-- 
     <script src="https://unpkg.com/element-ui/lib/index.js"></script> -->
    
-    <style>
-        body{
-            background-color: rgb(26, 52, 94);
-        }
-       
-        
-        .el-row {
-    margin-bottom: 10px;
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-        .el-col {
-          border-radius: 4px;
-        }
-        .bg-purple-dark {
-          background: #0c57c1;
-        }
-        .bg-purple {
-          background-color: rgb(63, 69, 94);
-        }
-        .bg-purple-light {
-          background: #4d73cc;
-        }
-        .grid-content {
-          padding-top: 10px;
-          padding-left: 10px;
-          font-size: 14px;
-          color: antiquewhite;
-          border-radius: 4px;
-          min-height: 40px;
-          line-height: 30px;
-          font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
-        }
-        .el-switch__label.is-active{
-            color:rgb(77, 225, 41);
-        }
+<style>
+  .el-badge__content, .el-progress.is-exception .el-progress-bar__inner {
+    background-color: #4d0574b2;
+}
+.el-badge__content--primary {
+    background-color: #409EFF;
+}
 
-        .el-switch__label{
-           
-            color:chocolate;
-        }
-        .el-drawer{
-            background-color: rgb(26, 52, 94);
-        }
-
-        .el-drawer__header{
-            color: antiquewhite;
-            font-size:20px;
-        }
-
-        .el-collapse{
-            margin: 10 10 10 10;
-        }
-        .el-collapse-item{
-            /* height: 20px; */
-            border-bottom: #4d73cc;
-        }
-
-        .el-collapse-item__header{
-            font-size:12px;
-            color:antiquewhite;
-            background-color: rgb(5, 59, 141);
-            padding-left: 20;
-        }
-        .el-collapse-item__wrap{
-            padding: 6;
-            background-color: rgb(5, 59, 141);
-        }
-        .el-collapse-item .el-table__cell{
-                font-size: 10px;
-        }
-
-        .el-table__cell{
-                font-size: 12px;
-        }
-        
-      </style>
+</style>
 </head>
 <body>
     <div id="app">
         <el-container>
 
             <el-header>
-                <div style=" margin:0 0;">
-                    <h1 style="color: beige; "><span>CSV Acolyte</span></h1>
-                    <h5 style="color: rgb(49, 4, 75); "><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- curse sacrificial vengance </span></h5>
-                </div>
-                
+              <el-row :gutter="12">
+                <el-col :span="1">
+                  <el-image src="static/Acolyte.gif" @click="apply" title="Click me!"></el-image>
+                </el-col>
+
+                <el-col :span="23">
+                  <div style="display: inline;">
+                    <h1 style="color: beige; font-family: 'Courier New', Courier, monospace;font-size: 28px;"><span>TimeSeries CSV Acolyte</span></h1>
+                  </div>
+                </el-col>
+              </el-row>
             </el-header>
             <el-main>
                 <template>
@@ -115,7 +54,7 @@
                                 START TIME
                             </div>
                         </el-col>
-                        <el-col :span="6" >
+                        <el-col :span="5" >
                             <div class="grid-content bg-purple">
                                 <div class="block" style="height:30px;">
                                     
@@ -130,9 +69,9 @@
                         </el-col>
 
 
-                        <el-col :span="4">
+                        <el-col :span="2">
                             <div class="grid-content bg-purple">
-                                TIME OFFSET UNIT
+                             UNIT
                             </div>
                         </el-col>
                         <el-col :span="4" >
@@ -140,35 +79,51 @@
                                 <el-select v-model="freq" placeholder="请选择" size="mini">
                                     <el-option
                                       key="H"
-                                      label="Hour"
+                                      label="HOUR"
                                       value="H">
                                     </el-option>
                                     <el-option
                                       key="D"
-                                      label="Day"
+                                      label="DAY"
                                       value="D">
                                     </el-option>
                                     <el-option
-                                      key="M"
-                                      label="Minute"
-                                      value="M">
+                                      key="MIN"
+                                      label="MINUTE"
+                                      value="MIN">
+                                    </el-option>
+                                    <el-option
+                                        key="S"
+                                        label="SECOND"
+                                        value="S">
                                     </el-option>
                                   </el-select>
                             </div>
                         </el-col>
+
+                        <el-col :span="2">
+                          <div class="grid-content bg-purple">
+                            STEP
+                          </div>
+                      </el-col>
+                      <el-col :span="3" >
+                          <div class="grid-content bg-purple">
+                              <el-input-number size="mini" v-model="step"></el-input-number>
+                          </div>
+                      </el-col>
     
-                        <el-col :span="4">
+                        <el-col :span="2">
                             <div class="grid-content bg-purple">
                                 ROWS
                             </div>
                         </el-col>
-                        <el-col :span="4" >
+                        <el-col :span="3" >
                             <div class="grid-content bg-purple">
                                 <el-input-number size="mini" v-model="data_rows"></el-input-number>
                             </div>
                         </el-col>
                       </el-row>
-                      <el-row :gutter="10">
+                      <el-row :gutter="10" style="margin-bottom: 20px;">
                         <el-col :span="4">
                             <div class="grid-content bg-purple">
                                 CSV Headers
@@ -180,40 +135,59 @@
                                 size="mini"
                                 placeholder="Please enter the header, with each field separated by a comma in English"
                                 prefix-icon="el-icon-search"
+                                :disabled="data_cols_disabled"
                                 @input="handleInputCol"
                                 v-model="data_cols">
                               </el-input>
                             </div>
                         </el-col>
                       </el-row>
-
+                      
                       
                       <span style="align-self: right;"> 
-                        <el-button  type="warning" round @click="apply" icon="el-icon-star-off">MAKE</el-button>
+                        <el-badge :value="retData.length" type="primary">
+                          <el-button  type="primary" round @click="apply" icon="el-icon-magic-stick">SUMMON</el-button>
+                        </el-badge>
                       </span> 
 
-                      <span style="align-self: right;"> 
-                        <el-button type="primary" round @click="showRet" icon="el-icon-view">VIEW</el-button>
+                      <span style="margin-left:5px; align-self: right;"> 
+                        <el-button type="info" round @click="showRet" icon="el-icon-video-camera">CHECK</el-button>
                       </span> 
 
-                      <span style="align-self: right;"> 
-                        <el-button type="danger" round @click="reset" icon="el-icon-unlock">RESET</el-button>
-                      </span> 
+                      
 
                       <span style="align-self: right;"> 
-                        <el-button type="success" round @click="downloads" icon="el-icon-truck">EXPORT</el-button>
+                        <el-badge v-model="arraySum" class="item">
+                          <el-button style="background-color: blueviolet;color: antiquewhite;" round @click="showPreview" icon="el-icon-view">SEE ALL</el-button>
+                        </el-badge>
+                        </span> 
+
+                      <span style="margin-left:5px;align-self: right;"> 
+                          <el-button type="success" round @click="downloads" icon="el-icon-printer">EXPORT</el-button>
                       </span> 
 
-                      <span style="align-self: right;"> 
+                      <span > 
                         <el-switch
                        style
                         v-model="continue_time"
+                        @change="changeST"
                         active-color="chartreuse"
                         inactive-color="chocolate"
-                        active-text="START_TIME EXTENDS LAST BATCH"
-                        inactive-text="START_TIME BY MANUAL">
+                        active-text="CONTINUE LATEST"
+                        inactive-text="SET TIME">
                         </el-switch>
-                    </span>
+                      </span>
+
+                      <span style="align-self: right;"> 
+                        <el-button type="warning" round @click="dropData" icon="el-icon-refresh-right">DISPEL</el-button>
+                      </span> 
+
+                      <span style="align-self: right;"> 
+                        <el-button type="danger" round @click="reset" icon="el-icon-refresh">RESET</el-button>
+                      </span> 
+                     
+
+                      
                                             
                     <el-divider><i class="el-icon-set-up"></i></el-divider>
 
@@ -238,75 +212,76 @@
                            
                             <template slot-scope="scope">
                                 <i class="el-icon-setting" ></i>
-                                <el-select  v-model="scope.row.func" placeholder="请选择">
+                                <el-select  v-model="scope.row.func" placeholder="Choose Plz">
                                     <el-option-group
                                       key="RAND"
-                                      label="随机">
+                                      label="Random">
                                       <el-option
                                         key="F_RAND_STR"
-                                        label="随机字符串"
+                                        label="Random String"
                                         value="F_RAND_STR">
                                       </el-option>
                                       <el-option
                                         key="F_RAND_NUM"
-                                        label="随机字数字"
+                                        label="Random Integer"
                                         value="F_RAND_NUM">
                                       </el-option>
                                       <el-option
                                         key="F_RAND_IP"
-                                        label="随机IP"
+                                        label="Random IP"
                                         value="F_RAND_IP">
                                       </el-option>
                                       <el-option
                                         key="F_RAND_PHONE"
-                                        label="随机手机号"
+                                        label="Random Mobile"
                                         value="F_RAND_PHONE">
                                       </el-option>
                                     </el-option-group>
 
                                     <el-option-group
                                         key="CONST"
-                                        label="定值">
+                                        label="Specification">
                                         <el-option
                                             key="F_CONST"
-                                            label="定值"
+                                            label="Constant"
                                             value="F_CONST">
                                         </el-option>
                                         <el-option
                                             key="F_SEQ"
-                                            label="序列"
+                                            label="Sequence"
                                             value="F_SEQ">
                                         </el-option>
                                         <el-option
                                             key="F_EMPTY"
-                                            label="空串"
+                                            label="Empty String"
                                             value="F_EMPTY">
+                                        </el-option>
+                                        <el-option
+                                            key="F_COUNT"
+                                            label="Relevance"
+                                            value="F_COUNT">
                                         </el-option>
                                         </el-option-group>
 
                                     <el-option-group
                                     key="STAT"
-                                    label="统计">
+                                    label="Statistics">
                                         <el-option
                                             key="F_STAT_SUM"
-                                            label="求和"
+                                            label="Sum"
                                             value="F_STAT_SUM">
                                         </el-option>
                                         <el-option
                                         key="F_STAT_AVG"
-                                        label="平均"
+                                        label="Avg"
                                         value="F_STAT_AVG">
                                         </el-option>
                                         <el-option
-                                        key="F_STAT_INC"
-                                        label="递增"
-                                        value="F_STAT_INC">
+                                        key="F_STAT_TREND"
+                                        label="Trend"
+                                        value="F_STAT_TREND">
                                         </el-option>
-                                        <el-option
-                                        key="F_STAT_DES"
-                                        label="递减"
-                                        value="F_STAT_DES">
-                                        </el-option>
+                                       
                                     </el-option-group>
 
                                 
@@ -318,24 +293,54 @@
                         <el-table-column
                           label="Input"
                           width="280">
+                          <template slot="header">
+                            <el-tooltip placement="top">
+                              <div slot="content">
+                                SEQ:INIT_VAL<br/>
+                                =1000|1000,1001,1002...<br/><br/>
+                                CONSTANT:VAL<br/>
+                                =column_name|default<br/><br/>
+                                SUM:SUM_VAL<br/>
+                                =500|99,101,300<br/><br/>
+                                TREND:INIT_VAL<br/>
+                                =100|100,99,98..<br/><br/>
+                                REL:VAL<br/>
+                                =2|acct1,acct2,acct1..<br/>
+                              </div>
+                            <i class="el-icon-info">Input</i>
+                            </el-tooltip>
+                          </template>
                           <template slot-scope="scope">
-                          <el-input :width="200" suffix-icon="el-icon-edit" v-model="scope.row.input" placeholder="请输入内容"></el-input>
+                          <el-input :width="200" suffix-icon="el-icon-edit" v-model="scope.row.input" placeholder="initial val,specify val ..."></el-input>
                             </template>
                         </el-table-column>
 
                         <el-table-column
                           label="Prefix"
-                          width="200">
+                          width="260">
+                          <template slot="header">
+                            <el-tooltip placement="top">
+                              <div slot="content">
+                                SEQ:PREFIX<br/>
+                                =seq_|seq_1,seq_2...<br/><br/>
+                                REL:PREFIX<br/>
+                                =IP_|IP_1,IP_2,IP_1...<br/><br/>
+                                TREND:DELTA<br/>
+                                -10,50,1%,-0.5%.<br/>
+                              </div>
+                            <i class="el-icon-info">Prefix</i>
+                            </el-tooltip>
+                          </template>
                           <template slot-scope="scope">
-                          <el-input :width="200" suffix-icon="el-icon-edit" v-model="scope.row.prefix" placeholder="选填"></el-input>
+                          <el-input :width="240" suffix-icon="el-icon-edit" v-model="scope.row.prefix" placeholder="prefix,step val,delta val ..."></el-input>
                             </template>
                         </el-table-column>
 
                         <el-table-column
-                          label="Conut"
-                          width="200">
+                          label="Ext"
+                          width="180">
                           <template slot-scope="scope">
-                          <el-input :width="200" suffix-icon="el-icon-edit" v-model="scope.row.count" placeholder="选填"></el-input>
+                          <el-input :width="200" suffix-icon="el-icon-edit" v-model="scope.row.ext" placeholder="Option input"></el-input>
                             </template>
                         </el-table-column>
                       </el-table>
@@ -352,13 +357,21 @@
         size="90%"
         >
        
-            <el-collapse accordion>
+            <el-collapse>
                 <template>
                 <el-collapse-item 
                     v-for="(sub_table, index)  in retData"
-                    :key="index"
+                    :key="index+1"
                     :title="'BATCH - '+ (index+1) + ' - RESULT'"
                 >
+                <template slot="title">
+                  <span><i class="el-icon-message" size="large"></i>&nbsp;&nbsp;Batch NO: _% (index+1) %_ &nbsp;&nbsp;&nbsp;</span>
+                  <span><i class="el-icon-pie-chart"></i>&nbsp;&nbsp;ROWS: _% (sub_table.length) %_ &nbsp;&nbsp;&nbsp;</span>
+                  <span stype="margin-left:100px;">
+                    <el-button type="info" icon="el-icon-delete" size="mini" circle @click="del_item(index)"></el-button>
+                  </span>
+                </template>
+                
                 <div>
                         <el-table
                           size="mini"
@@ -387,6 +400,42 @@
             </el-collapse>
 
         </el-drawer>
+
+        <el-dialog
+          title="Preview"
+          :visible.sync="centerDialogVisible"
+          width="80%"
+          height="100%"
+          center>
+
+          <template>
+          <el-table
+                          size="mini"
+                          :row-class-name="tableRowClassName"
+                          :data="totalData"
+                          style="font-size: 8px;border:1px solid burlywood;">
+                        <el-table-column
+                       width="60" key="batch" prop="batch" label="batch" size="mini" fixed >
+                        </el-table-column> 
+
+                        <el-table-column
+                         key="index" prop="index" label="index" size="mini" fixed>
+                        </el-table-column>  
+  
+                        <el-table-column
+                        v-for="(sub_item,sub_index) in tableData"
+                        :key="sub_item.name"
+                        :prop="sub_item.name"
+                        :label="sub_item.name"
+                         
+                         style="font-size: 8px;"
+                         >
+                        
+                        </el-table-column>
+                  </el-table>
+                </template>
+        </el-dialog>
+
     </div>
 </body>
 <script src="static/libs/zig.js"></script>
